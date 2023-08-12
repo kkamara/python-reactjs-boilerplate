@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "develop" ]
 
+env:
+  django_test_args: '-Wa'
+
 jobs:
   build:
     name: Tests Pipeline (Python ${{ matrix.python-version }})
@@ -52,4 +55,4 @@ jobs:
       run: cp .env.testing .env
     - name: Run Tests
       run: |
-        python manage.py test
+        python ${{ env.django_test_args }} manage.py test
