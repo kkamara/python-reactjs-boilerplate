@@ -28,7 +28,7 @@ With docker support.
 
 ```bash
 cp .env.example .env
-pip3 install virtualenv && \
+pip install virtualenv && \
   virtualenv env && \
   source env/bin/activate
 ```
@@ -36,10 +36,12 @@ pip3 install virtualenv && \
 ## Usage
 
 ```bash
-# alias py3="python3"
-py3 manage.py runserver 3000
+# alias py="python3"
+py manage.py runserver 3000
 # http://localhost:3000
 ```
+
+If you still need help installing and running the app check out the readme at https://github.com/kkamara/python-react-boilerplate which is the base system for this python-selenium app.
 
 ## Using Docker?
 
@@ -53,13 +55,13 @@ compose up
 ## iPython Django Shell
 
 ```bash
-  py3 manage.py shell -i ipython
+  py manage.py shell -i ipython
 ```
 
 ## API
 
 ```bash
-  py3 manage.py show_urls
+  py manage.py show_urls
 ```
 
 View the api collection [here](https://documenter.getpostman.com/view/17125932/UVyxQYrt).
@@ -71,7 +73,7 @@ Admin creds are set in [./compose/local/django/start](https://raw.githubusercont
 ```bash
 export DJANGO_SUPERUSER_PASSWORD=secret
 
-py3 manage.py createsuperuser \
+py manage.py createsuperuser \
   --username admin_user \
   --email admin@django-app.com \
   --no-input
@@ -80,7 +82,7 @@ py3 manage.py createsuperuser \
 ## Cache react app & view templates <a name="cache-templates"></a>
 
 ```bash
-py3 manage.py collectstatic
+py manage.py collectstatic
 ```
 
 ## Mail Server
