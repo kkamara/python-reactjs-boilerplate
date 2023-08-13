@@ -55,6 +55,13 @@ jobs:
       run: sed -i "s/3306/${{ job.services.mysql.ports['3306'] }}/g" .env.testing
     - name: Create environment file
       run: cp .env.testing .env
-    - name: Run Tests
+    - name: Create database tables
       run: |
-        python ${{ env.django_test_args }} manage.py test
+        # mkdir mynewapp/migrations
+        # touch mynewapp/migrations/__init__.py
+        # python manage.py makemigrations
+        python manage.py migrate
+    - name: Create super user
+      run: python manage.py loaddata app/fixtures/auth_user
+    - name: Run Tests
+      run: python ${{ env.django_test_args }} manage.py test

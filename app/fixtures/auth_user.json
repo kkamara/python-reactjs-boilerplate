@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$qJzyiNcYZBbXcJyFqwaCjG$3M3xtHf+9SR4pAZ9zT7xPCvxB3vBEjERpDzrS4OSxjg=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin_user",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@django-app.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-08-13T12:19:09.380Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

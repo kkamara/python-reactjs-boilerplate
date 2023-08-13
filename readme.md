@@ -4,6 +4,8 @@ With docker support.
 
 * [Installation](#installation)
 
+* [Add testing seed data](#add-testing-seed-data)
+
 * [Usage](#usage)
 
 * [Using Docker](#using-docker)
@@ -31,6 +33,16 @@ cp .env.example .env
 pip install virtualenv && \
   virtualenv env && \
   source env/bin/activate
+```
+
+##### Add testing seed data
+
+Example:
+
+Load data [auth_user.json](https://github.com/kkamara/python-react-boilerplate/blob/main/app/fixtures/auth_user.json) into database.
+
+```bash
+python manage.py loaddata app/fixtures/auth_user
 ```
 
 ## Usage
