@@ -54,8 +54,6 @@ py manage.py runserver 3000
 # http://localhost:3000
 ```
 
-If you still need help installing and running the app check out the readme at https://github.com/kkamara/python-react-boilerplate which is the base system for this python-selenium app.
-
 ## Using Docker?
 
 ```bash
