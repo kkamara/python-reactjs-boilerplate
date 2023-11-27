@@ -1,4 +1,4 @@
-# python-reactjs-boilerplate
+# python-reactjs-boilerplate [![Tests Pipeline](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml)
 
 With docker support.
 
