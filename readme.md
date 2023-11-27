@@ -1,4 +1,4 @@
-# python-react-boilerplate
+# python-reactjs-boilerplate
 
 With docker support.
 
