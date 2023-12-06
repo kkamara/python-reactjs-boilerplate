@@ -2,9 +2,9 @@ name: Tests Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "**" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "**" ]
 
 env:
   django_test_args: '-Wa'
