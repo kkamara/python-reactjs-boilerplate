@@ -30,9 +30,11 @@ With docker support.
 
 ```bash
 cp .env.example .env
-pip install virtualenv && \
-  virtualenv env && \
-  source env/bin/activate
+
+pip install virtualenv
+virtualenv env
+source env/bin/activate
+
 python3 manage.py migrate
 ```
 
@@ -84,10 +86,7 @@ Admin creds are set in [./compose/local/django/start](https://raw.githubusercont
 ```bash
 export DJANGO_SUPERUSER_PASSWORD=secret
 
-py manage.py createsuperuser \
-  --username admin_user \
-  --email admin@django-app.com \
-  --no-input
+py manage.py createsuperuser --username admin_user --email admin@django-app.com --no-input
 ```
 
 ## Cache react app & view templates <a name="cache-templates"></a>
