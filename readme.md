@@ -36,6 +36,12 @@ virtualenv env
 source env/bin/activate
 
 python3 manage.py migrate
+
+cd frontend
+npm i
+npm run build
+cd ..
+python3 manage.py collectstatic
 ```
 
 ##### Add testing seed data
