@@ -32,8 +32,8 @@
 cp .env.example .env
 
 pip install virtualenv
-virtualenv env
-source env/bin/activate
+python3 -m venv .env
+source .venv/bin/activate
 
 python3 manage.py migrate
 
