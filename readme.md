@@ -112,13 +112,17 @@ The [mailhog](https://github.com/mailhog/MailHog) docker image runs at `http://l
 
 [See your Python code do web browsing on your screen with GUI.](https://github.com/kkamara/python-selenium)
 
-[See python react boilerplate app.](https://github.com/kkamara/python-react-boilerplate)
+[See PHP Scraper.](https://github.com/kkamara/php-scraper)
 
-[See python docker skeleton.](https://github.com/kkamara/python-docker-skeleton)
+[See Python ReactJS Boilerplate app.](https://github.com/kkamara/python-reactjs-boilerplate)
 
-[See python desktop mobile.](https://github.com/kkamara/python-desktop-mobile)
+[See PHP ReactJS Boilerplate app.](https://github.com/kkamara/php-reactjs-boilerplate)
 
-[See python for finance.](https://github.com/kkamara/python-for-finance)
+[See Python Docker Skeleton.](https://github.com/kkamara/python-docker-skeleton)
+
+[See Python Desktop Mobile.](https://github.com/kkamara/python-desktop-mobile)
+
+[See Python for Finance.](https://github.com/kkamara/python-for-finance)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
