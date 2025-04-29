@@ -1,6 +1,6 @@
-# python-reactjs-boilerplate [![Tests Pipeline](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml)
+w# python-reactjs-boilerplate [![Tests Pipeline](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml)
 
-(2022) With docker support.
+(2022) Django 4 with Docker support.
 
 * [Using Postman?](#postman)
 
