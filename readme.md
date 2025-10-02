@@ -58,7 +58,7 @@ python3 manage.py collectstatic
 
 Example:
 
-Load data [auth_user.json](https://github.com/kkamara/python-react-boilerplate/blob/main/app/fixtures/auth_user.json) into database.
+Load data [auth_user.json](https://github.com/kkamara/python-reactjs-boilerplate/blob/main/app/fixtures/auth_user.json) into database.
 
 ```bash
 python manage.py loaddata app/fixtures/auth_user
@@ -97,7 +97,7 @@ View the api collection [here](https://documenter.getpostman.com/view/17125932/U
 
 ## Admin
 
-Admin creds are set in [./compose/local/django/start](https://raw.githubusercontent.com/kkamara/python-react-boilerplate/develop/compose/local/django/start)
+Admin creds are set in [./compose/local/django/start](https://raw.githubusercontent.com/kkamara/python-reactjs-boilerplate/develop/compose/local/django/start)
 
 ```bash
 export DJANGO_SUPERUSER_PASSWORD=secret
@@ -115,7 +115,7 @@ py manage.py collectstatic
 
 ![docker-mailhog.png](https://raw.githubusercontent.com/kkamara/useful/main/docker-mailhog.png)
 
-Mail environment credentials are at [.env](https://raw.githubusercontent.com/kkamara/python-react-boilerplate/develop/.env.example).
+Mail environment credentials are at [.env](https://raw.githubusercontent.com/kkamara/python-reactjs-boilerplate/develop/.env.example).
 
 The [mailhog](https://github.com/mailhog/MailHog) docker image runs at `http://localhost:8025`.
 
