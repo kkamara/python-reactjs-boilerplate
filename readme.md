@@ -117,7 +117,7 @@ py manage.py collectstatic
 
 Mail environment credentials are at [.env](https://raw.githubusercontent.com/kkamara/python-reactjs-boilerplate/develop/.env.example).
 
-The [mailhog](https://github.com/mailhog/MailHog) docker image runs at `http://localhost:8025`.
+The [Mailhog](https://github.com/mailhog/MailHog) Docker image runs at `http://localhost:8025`.
 
 ## Misc
 
