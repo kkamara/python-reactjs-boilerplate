@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`kelvinkamara.com`) || Host(`www.kelvinkamara.com`)"
+      rule: "Host(`example.com`) || Host(`www.example.com`)"
       entryPoints:
         - web-secure
       service: django
