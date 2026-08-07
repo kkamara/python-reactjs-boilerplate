@@ -6,6 +6,10 @@ set -o nounset
 
 
 python /app/manage.py collectstatic --noinput
-python /app/manage.py migrate --noinput
+
+# Run migrations only when explicitly enabled.
+if [ "1" = "${RUN_MIGRATIONS:-0}" ]; then
+	python /app/manage.py migrate --noinput
+fi
 
 /usr/local/bin/gunicorn app.wsgi:application --bind 0.0.0.0:5000 --chdir=/app
