@@ -1,75 +1,52 @@
-# python-reactjs-boilerplate [![Tests Pipeline](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/python-reactjs-boilerplate/actions/workflows/build.yml)
+# python-reactjs-boilerplate
 
-(2022) Django 4 with Docker support.
+(08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with ReactJS Redux SPA.
 
-* [Using Postman?](#postman)
+* [Requirements](#requirements)
 
 * [Installation](#installation)
 
-* [Add testing seed data](#add-testing-seed-data)
-
 * [Usage](#usage)
 
-* [Using Docker](#using-docker)
+* [Using Docker?](#using-docker)
+
+    * [Existing Admin User When Using Docker](#existing-admin-user-when-using-docker)
+
+    * [Using Docker's Mail Server](#using-dockers-mail-server)
 
 * [iPython Django Shell](#ipython-django-shell)
 
 * [API](#api)
 
-* [Admin](#admin)
-
-* [Cache react app & view templates](#cache-templates)
-
-* [Mail server](#mail-server)
-
-* [Misc](#misc)
+* [Cache View Templates](#cache-view-templates)
 
 * [Contributing](#contributing)
 
 * [License](#license)
 
-<a name="postman"></a>
-## Using Postman?
+## Requirements
 
-[Get Postman HTTP client](https://www.postman.com/).
-
-[Postman API Collection for Python ReactJS Boilerplate](https://github.com/kkamara/python-reactjs-boilerplate/blob/main/python-reactjs-boilerplate.postman_collection.json).
-
-[Postman API Environment for Python ReactJS Boilerplate](https://github.com/kkamara/python-reactjs-boilerplate/blob/main/python-reactjs-boilerplate.postman_environment.json).
+* [Tested using Python 3.13](https://www.python.org)
 
 ## Installation
 
 ```bash
 cp .env.example .env
 
-python3 -m venv .env
-source .venv/bin/activate
+python -m venv env
+source env/bin/activate
 
-python3 manage.py migrate
+pip install -r requirements.txt
 
-cd frontend
-npm i
-npm run build
-cd ..
-python3 manage.py collectstatic
-```
-
-##### Add testing seed data
-
-Example:
-
-Load data [auth_user.json](https://github.com/kkamara/python-reactjs-boilerplate/blob/main/app/fixtures/auth_user.json) into database.
-
-```bash
-python manage.py loaddata app/fixtures/auth_user
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 ## Usage
 
 ```bash
-# alias py="python3"
-py manage.py runserver 3000
-# http://localhost:3000
+python manage.py runserver
+# http://localhost:8000
 ```
 
 ## Using Docker?
@@ -78,62 +55,49 @@ py manage.py runserver 3000
 alias compose='docker-compose -f local.yml'
 compose build
 compose up
-# http://localhost:3000
+# http://localhost:8000
 ```
+
+#### Existing Admin User When Using Docker
+
+The admin user details are set in [./compose/local/django/start](./compose/local/django/start).
+
+```bash
+export DJANGO_SUPERUSER_PASSWORD="${DJANGO_SUPERUSER_PASSWORD:-secret}"
+
+python manage.py createsuperuser \
+  --no-input \
+  --username admin_user \
+  --email admin@django-app.com
+```
+
+#### Using Docker's Mail Server
+
+<img src="https://raw.githubusercontent.com/kkamara/useful/main/docker-mailhog.png" alt="docker-mailhog.png" width="300px"/>
+
+Mail environment credentials are at [.env](./.env.example).
+
+The [Mailhog](https://github.com/mailhog/MailHog) Docker mail client runs at `http://localhost:8025`. This is running in the above image that is receiving emails from your Django app.
 
 ## iPython Django Shell
 
 ```bash
-  py manage.py shell -i ipython
+python manage.py shell -i ipython
 ```
 
 ## API
 
 ```bash
-  py manage.py show_urls
+python manage.py show_urls
 ```
 
-View the api collection [here](https://documenter.getpostman.com/view/17125932/UVyxQYrt).
+## Cache View Templates
 
-## Admin
-
-Admin creds are set in [./compose/local/django/start](https://raw.githubusercontent.com/kkamara/python-reactjs-boilerplate/develop/compose/local/django/start)
+This includes the React app build files.
 
 ```bash
-export DJANGO_SUPERUSER_PASSWORD=secret
-
-py manage.py createsuperuser --username admin_user --email admin@django-app.com --no-input
+python manage.py collectstatic
 ```
-
-## Cache react app & view templates <a name="cache-templates"></a>
-
-```bash
-py manage.py collectstatic
-```
-
-## Mail Server
-
-![docker-mailhog.png](https://raw.githubusercontent.com/kkamara/useful/main/docker-mailhog.png)
-
-Mail environment credentials are at [.env](https://raw.githubusercontent.com/kkamara/python-reactjs-boilerplate/develop/.env.example).
-
-The [Mailhog](https://github.com/mailhog/MailHog) Docker image runs at `http://localhost:8025`.
-
-## Misc
-
-[See your Python code do web browsing on your screen with GUI.](https://github.com/kkamara/python-selenium)
-
-[See PHP Scraper.](https://github.com/kkamara/php-scraper)
-
-[See Python ReactJS Boilerplate app.](https://github.com/kkamara/python-reactjs-boilerplate)
-
-[See PHP ReactJS Boilerplate app.](https://github.com/kkamara/php-reactjs-boilerplate)
-
-[See Python Docker Skeleton.](https://github.com/kkamara/python-docker-skeleton)
-
-[See Python Desktop Mobile.](https://github.com/kkamara/python-desktop-mobile)
-
-[See Python for Finance.](https://github.com/kkamara/python-for-finance)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

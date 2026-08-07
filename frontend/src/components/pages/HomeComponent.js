@@ -8,7 +8,7 @@ export default function HomeComponent() {
   return (
     <>
       <Helmet>
-        <title>Django Boilerplate</title>
+        <title>Python Django Boilerplate</title>
       </Helmet>
       <div className='container'>
         <div className="col-md-6 offset-md-3 text-center">

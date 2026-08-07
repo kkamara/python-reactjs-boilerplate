@@ -2,9 +2,9 @@ name: Tests Pipeline
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "**" ]
+    branches: [ "main" ]
 
 env:
   django_test_args: '-Wa'
@@ -17,11 +17,11 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.11]
+        python-version: [3.13]
     
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: 'secret'
           MYSQL_DATABASE: 'boilerplate'
@@ -30,38 +30,23 @@ jobs:
         ports:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-      
-      redis:
-        image: redis
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 6379:6379
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Prepare Env Variables
-      run: sed -i "s/3306/${{ job.services.mysql.ports['3306'] }}/g" .env.testing
-    - name: Create environment file
-      run: cp .env.testing .env
-    - name: Create database tables
-      run: |
-        # mkdir mynewapp/migrations
-        # touch mynewapp/migrations/__init__.py
-        # python manage.py makemigrations
-        python manage.py migrate
-    - name: Create super user
-      run: python manage.py loaddata app/fixtures/auth_user
-    - name: Run Tests
-      run: python ${{ env.django_test_args }} manage.py test
+      - uses: actions/checkout@v7
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: pip install --no-input -vqr requirements.txt
+      - name: Create environment file
+        run: |
+          cp .env.example .env
+          sed -i "s/APP_ENV=local/APP_ENV=test/g" .env
+          sed -i "s/CONNECTION=sqlite/CONNECTION=mysql/g" .env
+          sed -i "s/MARIADB_USER=root/MARIADB_USER=user/g" .env
+          sed -i "s/MARIADB_PASSWORD=/MARIADB_PASSWORD=secret/g" .env
+          sed -i "s/MARIADB_PORT=3306/MARIADB_PORT=${{ job.services.mysql.ports['3306'] }}/g" .env
+      - name: Run Tests
+        run: |
+          python ${{ env.django_test_args }} manage.py test
