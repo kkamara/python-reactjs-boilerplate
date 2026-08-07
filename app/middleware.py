@@ -34,5 +34,5 @@ class AdminRateLimitMiddleware:
 
     def __call__(self, request):
         if request.path.startswith("/admin/"):
-            self.rate_limit(lambda r: None)(request)  # Apply rate limit check
+            return self.rate_limit(self.get_response)(request)  # Apply rate limit check
         return self.get_response(request)
