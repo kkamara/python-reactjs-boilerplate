@@ -1,7 +1,7 @@
 import logging
 import time
-from django_ratelimit.decorators import ratelimit
 
+from django_ratelimit.decorators import ratelimit
 
 request_logger = logging.getLogger("request")
 
