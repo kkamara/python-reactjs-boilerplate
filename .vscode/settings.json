@@ -1,3 +1,0 @@
-{
-  "python.defaultInterpreterPath": "${env:HOME}/workspace/python-reactjs-boilerplate/.venv/bin/python"
-}
