@@ -97,7 +97,7 @@ export default function HomeComponent() {
   return (
     <div className="container home-container">
       <Helmet>
-        <title>Home - {import.meta.env.VITE_APP_NAME || "NodeJS ReactJS Boilerplate"}</title>
+        <title>Home - {import.meta.env.VITE_APP_NAME}</title>
       </Helmet>
       <ErrorComponent error={state.auth.error || state.users.error}/>
       <div className="text-center">
