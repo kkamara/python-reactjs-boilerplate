@@ -94,12 +94,12 @@ ROOT_URLCONF = "app.urls"
 
 CORS_URLS_REGEX = r"^/api/.*$"
 
-FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(FRONTEND_DIR, 'dist')],
+        "DIRS": [os.path.join(FRONTEND_DIR, "dist")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -172,7 +172,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'dist')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "frontend", "dist")]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
