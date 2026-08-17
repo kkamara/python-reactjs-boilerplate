@@ -7,8 +7,8 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    re_path(r"^.*", views.catchall),
     path("api/v1/", include("api.v1.urls")),
+    re_path(r"^.*", views.catchall),
 ]
 
 if settings.DEBUG:
