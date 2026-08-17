@@ -1,0 +1,68 @@
+{
+  "info": {
+    "_postman_id": "a65dfe2f-a815-4d16-8855-f13cda8093e0",
+    "name": "python-reactjs-boilerplate",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17125932"
+  },
+  "item": [
+    {
+      "name": "API",
+      "item": [
+        {
+          "name": "User",
+          "item": [
+            {
+              "name": "Bearer Token Restricted",
+              "item": []
+            },
+            {
+              "name": "Register User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Time-Zone",
+                    "value": "Europe/London",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\": \"James\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"james@doe.com\",\r\n    \"username\": \"james\",\r\n    \"password\": \"secret\",\r\n    \"passwordConfirmation\": \"secret\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{API}}/users/register/",
+                  "host": [
+                    "{{API}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 (08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with ReactJS Redux SPA.
 
+* [Using Postman?](#using-postman)
+
 * [Requirements](#requirements)
 
 * [Installation](#installation)
@@ -23,6 +25,14 @@
 * [Contributing](#contributing)
 
 * [License](#license)
+
+## Using Postman?
+
+[Get Postman HTTP client](https://www.postman.com).
+
+[Postman API Collection for Python ReactJS Boilerplate](./python-reactjs-boilerplate.postman_collection.json).
+
+[Postman API Environment for Python ReactJS Boilerplate](./python-reactjs-boilerplate.postman_environment.json).
 
 ## Requirements
 
