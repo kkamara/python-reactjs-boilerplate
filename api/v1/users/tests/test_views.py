@@ -19,5 +19,25 @@ class RegisterUserViewTests(TestCase):
         response = self.client.post(reverse("register-user"), payload)
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"username": "janedoe"})
+        self.assertEqual(response.json()["username"], "janedoe")
+        self.assertEqual(response.json()["email"], "jane@example.com")
         self.assertTrue(User.objects.filter(username="janedoe").exists())
+
+    def test_register_user_post_returns_flattened_errors(self):
+        payload = {
+            "firstName": "",
+            "lastName": "Doe",
+            "username": "janedoe",
+            "email": "jane@example.com",
+            "password": "secret123",
+            "passwordConfirmation": "secret123",
+        }
+
+        response = self.client.post(reverse("register-user"), payload)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json()["message"],
+            "The first name field may not be blank.",
+        )
+        self.assertNotIn("errors", response.json())

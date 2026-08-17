@@ -1,7 +1,9 @@
 import axios from "axios"
 
-axios.defaults.withCredentials = true
-axios.defaults.withXSRFToken = false
+axios.defaults.withCredentials = false
+axios.defaults.withXSRFToken = true
+axios.defaults.xsrfCookieName = "csrftoken"
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
 
 export default class HttpService
 {
@@ -10,7 +12,7 @@ export default class HttpService
   _timeout = 5000
 
   constructor() {
-    this.domain = import.meta.env.VITE_APP_API_ROOT
+    this.domain = import.meta.env.VITE_APP_API_ROOT || window.location.origin
     this.url = this.domain
   }
 
@@ -23,7 +25,7 @@ export default class HttpService
   }
 
   set url(newDomain) {
-    return this._url = newDomain+"/api/v1/web"
+    return this._url = newDomain+"/api/v1"
   }
 
   get url() {
@@ -44,6 +46,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.post(
       url, 
@@ -62,6 +66,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.postForm(
       url, 
@@ -80,6 +86,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.put(
       url, 
@@ -98,6 +106,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.putForm(
       url, 
@@ -116,6 +126,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.patch(
       url, 
@@ -134,6 +146,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.patchForm(
       url, 
@@ -152,6 +166,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.get(
       url, 

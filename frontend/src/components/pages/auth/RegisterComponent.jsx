@@ -9,6 +9,7 @@ import "./RegisterComponent.scss"
 
 const defaultFirstNameState = ""
 const defaultLastNameState = ""
+const defaultUsernameState = ""
 const defaultEmailState = ""
 const defaultPasswordState = ""
 const defaultPasswordConfirmationState = ""
@@ -18,6 +19,7 @@ export default function RegisterComponent() {
 
   const [firstName, setFirstName] = useState(defaultFirstNameState)
   const [lastName, setLastName] = useState(defaultLastNameState)
+  const [username, setUsername] = useState(defaultUsernameState)
   const [email, setEmail] = useState(defaultEmailState)
   const [password, setPassword] = useState(defaultPasswordState)
   const [passwordConfirmation, setPasswordConfirmation] = useState(defaultPasswordConfirmationState)
@@ -48,6 +50,7 @@ export default function RegisterComponent() {
     dispatch(register({
       firstName,
       lastName,
+      username,
       email,
       password,
       passwordConfirmation,
@@ -55,6 +58,7 @@ export default function RegisterComponent() {
 
     setFirstName("")
     setLastName("")
+    setUsername("")
     setEmail("")
     setPassword("")
     setPasswordConfirmation("")
@@ -66,6 +70,10 @@ export default function RegisterComponent() {
 
   const onLastNameChange = (e) => {
     setLastName(e.target.value)
+  }
+
+  const onUsernameChange = (e) => {
+    setUsername(e.target.value)
   }
 
   const onEmailChange = (e) => {
@@ -117,6 +125,17 @@ export default function RegisterComponent() {
               id="lastName"
               value={lastName}
               onChange={onLastNameChange}
+              autoComplete="on"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="username">Username*:</label>
+            <input 
+              name="username" 
+              className="form-control"
+              id="username"
+              value={username}
+              onChange={onUsernameChange}
               autoComplete="on"
             />
           </div>

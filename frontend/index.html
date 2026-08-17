@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load django_vite %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,12 +7,14 @@
     <meta name="description" content="Python Boilerplate" />
     <title>Python Boilerplate - www.kelvinkamara.com</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
+    {% vite_hmr_client %}
+    {% vite_react_refresh %}
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="app"></div>
-    <script type="module" src="/src/index.jsx"></script>
+    {% vite_asset 'src/index.jsx' %}
   </body>
 </html>

@@ -6,12 +6,20 @@ export default defineConfig(() => {
     plugins: [react()],
     base: "/static/",
     server: {
-      host: "0.0.0.0",
-      port: 3000,
+      host: "localhost",
+      port: 5173,
+      cors: true,
     },
     preview: {
-      host: "0.0.0.0",
-      port: 3000,
+      host: "localhost",
+      port: 5173,
+      cors: true,
+    },
+    build: {
+      manifest: "manifest.json",
+      rollupOptions: {
+        input: "src/index.jsx",
+      },
     },
     test: {
       globals: true,

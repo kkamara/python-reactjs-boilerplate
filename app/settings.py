@@ -17,6 +17,7 @@ import time
 from pathlib import Path
 
 import environ
+from corsheaders.defaults import default_headers
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -46,7 +47,9 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=lambda value: value.split())
-CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+CSRF_TRUSTED_ORIGINS = env(
+    "CSRF_TRUSTED_ORIGINS", default="", cast=lambda value: value.split()
+)
 
 # Application definition
 
@@ -65,6 +68,7 @@ SITE_ID = 1
 THIRD_PARTY_APPS = [
     "corsheaders",
     "django_extensions",
+    "django_vite",
 ]
 
 LOCAL_APPS = [
@@ -89,6 +93,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=lambda value: value.split())
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = (*default_headers, "time-zone")
 
 ROOT_URLCONF = "app.urls"
 
@@ -99,7 +105,7 @@ FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(FRONTEND_DIR, "dist")],
+        "DIRS": [FRONTEND_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -111,6 +117,14 @@ TEMPLATES = [
         },
     },
 ]
+
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": DEBUG,
+        "dev_server_host": "localhost",
+        "dev_server_port": 5173,
+    }
+}
 
 WSGI_APPLICATION = "app.wsgi.application"
 
