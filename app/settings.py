@@ -280,6 +280,3 @@ USE_X_FORWARDED_PROTO = env.bool("USE_X_FORWARDED_PROTO", default=False)
 if USE_X_FORWARDED_PROTO:
     # Tuple assignment is correct here
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-TURNSTILE_SECRET = env("TURNSTILE_SECRET", default="")
-TURNSTILE_SITEKEY = env("TURNSTILE_SITEKEY", default="")
