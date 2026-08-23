@@ -151,7 +151,7 @@ export default function SettingsComponent() {
   return (
     <div className="container settings-container">
       <Helmet>
-        <title>User Settings - {import.meta.env.VITE_APP_NAME || "NodeJS ReactJS Boilerplate"}</title>
+        <title>User Settings - {import.meta.env.VITE_APP_NAME || "NodeJS React Boilerplate"}</title>
       </Helmet>
       <div className="row">
         <div className="col-md-4 offset-md-4">

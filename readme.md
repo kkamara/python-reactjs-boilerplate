@@ -30,9 +30,9 @@
 
 [Get Postman HTTP client](https://www.postman.com).
 
-[Postman API Collection for Python ReactJS Boilerplate](./python-react-boilerplate.postman_collection.json).
+[Postman API Collection for Python React Boilerplate](./python-react-boilerplate.postman_collection.json).
 
-[Postman API Environment for Python ReactJS Boilerplate](./python-react-boilerplate.postman_environment.json).
+[Postman API Environment for Python React Boilerplate](./python-react-boilerplate.postman_environment.json).
 
 ## Requirements
 
