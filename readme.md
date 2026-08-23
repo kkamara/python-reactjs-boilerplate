@@ -1,4 +1,4 @@
-# python-reactjs-boilerplate
+# python-react-boilerplate
 
 (08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with ReactJS Redux SPA.
 
