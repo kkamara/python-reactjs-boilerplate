@@ -55,7 +55,7 @@ cd frontend
 cp .env.example .env
 yarn
 yarn build
-# in root .env, set DEBUG=True
+# In root .env, set DEBUG=True
 yarn start
 ```
 
