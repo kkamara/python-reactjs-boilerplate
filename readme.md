@@ -53,6 +53,8 @@ python manage.py migrate
 
 cd frontend
 cp .env.example .env
+yarn
+yarn build
 ```
 
 ## Usage
