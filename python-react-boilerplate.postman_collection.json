@@ -14,7 +14,102 @@
           "item": [
             {
               "name": "Bearer Token Restricted",
-              "item": []
+              "item": [
+                {
+                  "name": "Authorise User",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Time-Zone",
+                        "value": "Europe/London",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{API}}/users/authorise/",
+                      "host": [
+                        "{{API}}"
+                      ],
+                      "path": [
+                        "users",
+                        "authorise",
+                        ""
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Logout User",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Time-Zone",
+                        "value": "Europe/London",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "",
+                        "value": "",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc4NzkyNDYxNCwiaWF0IjoxNzg3ODM4MjE0LCJqdGkiOiJiYjAwZmNjZGRlZDk0OTg4OWQxZDU4NTEyMTI5MmRhZSIsInVzZXJfaWQiOiIyIn0.hBCZVQ1h6lYU3xDg3kpEfwzrQpD-4F3bQjRkY15IdRE\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{API}}/users/",
+                      "host": [
+                        "{{API}}"
+                      ],
+                      "path": [
+                        "users",
+                        ""
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
             },
             {
               "name": "Register User",
