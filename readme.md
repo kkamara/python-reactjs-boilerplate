@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py loaddata ./api/v1/users/fixtures/user-seed.json
+python manage.py loaddata api/v1/web/users/fixtures/user-seed.json
 
 cd frontend
 cp .env.example .env

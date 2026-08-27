@@ -25,7 +25,7 @@ export default class HttpService
   }
 
   set url(newDomain) {
-    return this._url = newDomain+"/api/v1"
+    return this._url = newDomain+"/api/v1/web"
   }
 
   get url() {
