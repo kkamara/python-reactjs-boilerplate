@@ -13,9 +13,9 @@ export const LoginUserService = (credentials) => {
   const http = new HttpService()
   const tokenID = "user-token"
   
-  return http.postData("/users", credentials)
+  return http.postData("/users/login", credentials)
     .then(response => {
-      localStorage.setItem(tokenID, response.data.data.authToken)
+      localStorage.setItem(tokenID, response.data.data.access)
       return response.data
     })
     .catch(err => { throw err })

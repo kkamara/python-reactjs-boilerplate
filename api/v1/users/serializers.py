@@ -101,15 +101,21 @@ class RegisterUserSerializer(serializers.Serializer):
 
 
 class UserResponseSerializer(serializers.ModelSerializer):
+    firstName = serializers.CharField(source="first_name")
+    lastName = serializers.CharField(source="last_name")
+    isStaff = serializers.BooleanField(source="is_staff")
+    dateJoined = serializers.DateTimeField(source="date_joined")
+
     class Meta:
         model = USER_MODEL
         fields = (
+            "id",
             "username",
-            "first_name",
-            "last_name",
+            "firstName",
+            "lastName",
             "email",
-            "is_staff",
-            "date_joined",
+            "isStaff",
+            "dateJoined",
         )
 
 

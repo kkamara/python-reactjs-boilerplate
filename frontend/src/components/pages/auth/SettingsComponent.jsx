@@ -160,7 +160,7 @@ export default function SettingsComponent() {
           <ErrorComponent error={error}/>
 
           <div className="edit-avatar-container">
-            <img
+            {/* <img
               src={state.auth.data.avatarPath}
               alt="Avatar Image"
               className="img-fluid avatar-image"
@@ -178,7 +178,7 @@ export default function SettingsComponent() {
               onClick={handleUploadFileBtnClick}
             >
               Upload
-            </button>
+            </button> */}
             <br />
             <button
               className="btn btn-danger btn-sm"

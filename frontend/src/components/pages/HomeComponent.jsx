@@ -105,11 +105,11 @@ export default function HomeComponent() {
           Test Button
         </button>
       </div>
-      <br />
+      {/* <br />
       <br />
       {pagination()}
       {renderList()}
-      {pagination()}
+      {pagination()} */}
     </div>
   )
 }

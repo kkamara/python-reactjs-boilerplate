@@ -6,11 +6,11 @@ import ErrorComponent from "../../layouts/ErrorComponent"
 
 import "./LoginComponent.scss"
 
-const defaultEmailState = "jane@example.com"
+const defaultUsernameState = "jane"
 const defaultPasswordState = "secret"
 
 export default function LoginComponent() {
-  const [email, setEmail] = useState(defaultEmailState)
+  const [username, setUsername] = useState(defaultUsernameState)
   const [password, setPassword] = useState(defaultPasswordState)
 
   const dispatch = useDispatch()
@@ -31,14 +31,13 @@ export default function LoginComponent() {
   const onFormSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(login({ email, password, }))
+    dispatch(login({ username, password, }))
 
-    setEmail("")
     setPassword("")
   }
 
-  const onEmailChange = (e) => {
-    setEmail(e.target.value)
+  const onUsernameChange = (e) => {
+    setUsername(e.target.value)
   }
 
   const onPasswordChange = (e) => {
@@ -63,12 +62,12 @@ export default function LoginComponent() {
       <form method="post" onSubmit={onFormSubmit}>
         <ErrorComponent error={state.auth.error} />
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="username">Username:</label>
           <input 
-            name="email" 
+            name="username" 
             className="form-control"
-            value={email}
-            onChange={onEmailChange}
+            value={username}
+            onChange={onUsernameChange}
             autoComplete="on"
           />
         </div>
