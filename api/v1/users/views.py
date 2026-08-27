@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics, serializers, status
 from rest_framework.response import Response
 
+from api.utils import first_validation_error
+
 from .serializers import RegisterUserSerializer, UserResponseSerializer
 
 USER_MODEL = get_user_model()
@@ -11,24 +13,6 @@ class RegisterUserCreateAPIView(generics.CreateAPIView):
     queryset = USER_MODEL.objects.all()
     serializer_class = RegisterUserSerializer
 
-    @staticmethod
-    def first_validation_error(errors):
-        if isinstance(errors, dict):
-            for value in errors.values():
-                result = RegisterUserCreateAPIView.first_validation_error(value)
-                if result is not None:
-                    return result
-            return None
-
-        if isinstance(errors, list):
-            for item in errors:
-                result = RegisterUserCreateAPIView.first_validation_error(item)
-                if result is not None:
-                    return result
-            return None
-
-        return str(errors)
-
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
@@ -37,7 +21,7 @@ class RegisterUserCreateAPIView(generics.CreateAPIView):
         except serializers.ValidationError as exc:
             return Response(
                 {
-                    "message": self.first_validation_error(exc.detail),
+                    "message": first_validation_error(exc.detail),
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
