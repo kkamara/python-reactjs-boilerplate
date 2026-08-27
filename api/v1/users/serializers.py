@@ -1,6 +1,9 @@
+from typing import ClassVar
+
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .validators import unique_email, unique_username
 
@@ -107,4 +110,30 @@ class UserResponseSerializer(serializers.ModelSerializer):
             "email",
             "is_staff",
             "date_joined",
+        )
+
+
+class LoginUserSerializer(TokenObtainPairSerializer):
+    default_error_messages: ClassVar[dict[str, str]] = {
+        "no_active_account": "The username or password field is incorrect.",
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields[self.username_field].max_length = 255
+        self.fields[self.username_field].error_messages.update(
+            {
+                "required": "The username field is required.",
+                "blank": "The username field may not be blank.",
+                "max_length": "The username field length must not exceed 255 characters.",
+            }
+        )
+        self.fields["password"].max_length = 255
+        self.fields["password"].error_messages.update(
+            {
+                "required": "The password field is required.",
+                "blank": "The password field may not be blank.",
+                "max_length": "The password field length must not exceed 255 characters.",
+            }
         )

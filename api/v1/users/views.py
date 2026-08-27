@@ -1,10 +1,17 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics, serializers, status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from api.utils import first_validation_error
 
-from .serializers import RegisterUserSerializer, UserResponseSerializer
+from .serializers import (
+    LoginUserSerializer,
+    RegisterUserSerializer,
+    UserResponseSerializer,
+)
 
 USER_MODEL = get_user_model()
 
@@ -51,3 +58,41 @@ class RegisterUserCreateAPIView(generics.CreateAPIView):
             password=password,
         )
         return new_user
+
+
+class LoginUserAPIView(TokenObtainPairView):
+    serializer_class = LoginUserSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as exc:
+            raise InvalidToken(exc.args[0]) from exc
+        except serializers.ValidationError as exc:
+            return Response(
+                {
+                    "message": first_validation_error(exc.detail),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except AuthenticationFailed as exc:
+            return Response(
+                {
+                    "message": first_validation_error(exc.detail),
+                },
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        user = serializer.user
+        
+        response = {
+            "data": {
+                "user": UserResponseSerializer(instance=user).data,
+                "access": serializer.validated_data.get("access"),
+                "refresh": serializer.validated_data.get("refresh"),
+            }
+        }
+
+        return Response(response, status=status.HTTP_200_OK)

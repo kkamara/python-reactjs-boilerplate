@@ -59,6 +59,50 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "Login User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Time-Zone",
+                    "value": "Europe/London",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\": \"jane\",\r\n    \"password\": \"secret\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{API}}/users/login/",
+                  "host": [
+                    "{{API}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login",
+                    ""
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         }
