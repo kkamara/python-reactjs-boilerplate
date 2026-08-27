@@ -140,7 +140,7 @@ export default function SettingsComponent() {
   }
   
   if (state.auth.loading) {
-    <div className="container settings-container text-center">
+    return <div className="container settings-container text-center">
       <Helmet>
         <title>User Settings - {import.meta.env.VITE_APP_NAME}</title>
       </Helmet>
