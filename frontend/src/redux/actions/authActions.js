@@ -38,7 +38,7 @@ export const authorise = () => {
   return dispatch => {
 
     dispatch({ type: auth.AUTH_AUTHORIZE_PENDING, })
-    const tokenID = "user-token"
+    const tokenID = "access-token"
     if (localStorage.getItem(tokenID) === null) {
       return dispatch({
         type: auth.AUTH_AUTHORIZE_ERROR,

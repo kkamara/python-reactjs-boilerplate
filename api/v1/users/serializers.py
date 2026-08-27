@@ -3,7 +3,9 @@ from typing import ClassVar
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from rest_framework import serializers
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .validators import unique_email, unique_username
 
@@ -101,6 +103,7 @@ class RegisterUserSerializer(serializers.Serializer):
 
 
 class UserResponseSerializer(serializers.ModelSerializer):
+    # avatarPath = serializers.CharField(source="avatar_path")
     firstName = serializers.CharField(source="first_name")
     lastName = serializers.CharField(source="last_name")
     isStaff = serializers.BooleanField(source="is_staff")
@@ -110,6 +113,7 @@ class UserResponseSerializer(serializers.ModelSerializer):
         model = USER_MODEL
         fields = (
             "id",
+            # "avatarPath",
             "username",
             "firstName",
             "lastName",
@@ -143,3 +147,27 @@ class LoginUserSerializer(TokenObtainPairSerializer):
                 "max_length": "The password field length must not exceed 255 characters.",
             }
         )
+
+
+class LogoutUserSerializer(serializers.Serializer):
+    refresh = serializers.CharField(
+        write_only=True,
+        required=True,
+        trim_whitespace=True,
+        error_messages={
+            "required": "The refresh field is required.",
+            "blank": "The refresh field may not be blank.",
+        },
+    )
+
+    def validate_refresh(self, value):
+        try:
+            self.token = RefreshToken(value)
+        except TokenError as exc:
+            raise serializers.ValidationError(
+                "The refresh field must be a valid token."
+            ) from exc
+        return value
+
+    def save(self, **kwargs):
+        self.token.blacklist()

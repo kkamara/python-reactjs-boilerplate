@@ -14,7 +14,7 @@ export default function HomeComponent() {
   }))
 
   useEffect(() => {
-    dispatch(getUsers())
+    // dispatch(getUsers())
   }, [])
 
   const handlePageChange = ({ selected, }) => {
