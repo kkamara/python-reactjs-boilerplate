@@ -14,6 +14,7 @@ import logging
 import logging.config
 import os
 import time
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -84,6 +85,13 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "EXCEPTION_HANDLER": "api.utils.custom_exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "app.pagination.CustomPagination",
+    "PAGE_SIZE": 5,
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
 MIDDLEWARE = [
