@@ -27,7 +27,7 @@ class GetUsersViewTests(TestCase):
 
     def test_get_users_returns_paginated_users(self):
         response = self.client.get(
-            reverse("web:users:logout_user"),
+            reverse("web:users:user"),
             HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
         )
 
@@ -41,14 +41,14 @@ class GetUsersViewTests(TestCase):
         )
 
     def test_get_users_does_not_require_authentication(self):
-        response = self.client.get(reverse("web:users:logout_user"))
+        response = self.client.get(reverse("web:users:user"))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()["data"]), 7)
 
     def test_get_users_rejects_non_integer_page(self):
         response = self.client.get(
-            reverse("web:users:logout_user"),
+            reverse("web:users:user"),
             {"page": "first"},
             HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
         )
