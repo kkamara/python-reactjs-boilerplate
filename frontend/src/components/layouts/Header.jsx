@@ -11,10 +11,10 @@ export default function Header(props) {
     if(null !== authResponse.data) {
       return <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {/* <img
+          <img
             className="header-user-avatar"
             src={authResponse.data.avatarPath}
-          /> */}
+          />
           User
         </a>
         <ul className="dropdown-menu">

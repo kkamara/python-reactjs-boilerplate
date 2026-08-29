@@ -1,4 +1,8 @@
+from pathlib import Path
+from uuid import uuid4
+
 from django.contrib.auth import get_user_model
+from django.core.files.storage import default_storage
 from rest_framework import generics, serializers, status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
@@ -7,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from api.models import UserProfile
 from api.utils import first_validation_error
 
 from .serializers import (
@@ -18,6 +23,8 @@ from .serializers import (
 )
 
 USER_MODEL = get_user_model()
+ALLOWED_AVATAR_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+MAX_AVATAR_SIZE = 5 * 1024 * 1024
 
 
 class RegisterUserCreateAPIView(generics.CreateAPIView):
@@ -150,3 +157,41 @@ class UserAPIView(APIView):
         serializer.save()
 
         return Response(status=status.HTTP_205_RESET_CONTENT)
+
+
+class AvatarAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        avatar = request.FILES.get("avatar")
+        extension = Path(avatar.name).suffix.lower() if avatar else ""
+        if not avatar or extension not in ALLOWED_AVATAR_EXTENSIONS:
+            return Response(
+                {"message": "Please upload a JPG, JPEG, PNG, or WEBP image."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if avatar.size > MAX_AVATAR_SIZE:
+            return Response(
+                {"message": "The avatar image must not exceed 5 MB."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        previous_avatar_name = profile.avatar_name
+        profile.avatar_name = default_storage.save(
+            f"avatars/{uuid4().hex}{extension}", avatar
+        )
+        profile.save(update_fields=["avatar_name"])
+        if previous_avatar_name:
+            default_storage.delete(previous_avatar_name)
+
+        return Response({"message": "Success."}, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        if profile.avatar_name:
+            default_storage.delete(profile.avatar_name)
+            profile.avatar_name = ""
+            profile.save(update_fields=["avatar_name"])
+
+        return Response({"message": "Success."}, status=status.HTTP_200_OK)

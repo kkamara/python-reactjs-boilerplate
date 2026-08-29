@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from rest_framework import serializers
@@ -103,17 +104,27 @@ class RegisterUserSerializer(serializers.Serializer):
 
 
 class UserResponseSerializer(serializers.ModelSerializer):
-    # avatarPath = serializers.CharField(source="avatar_path")
     firstName = serializers.CharField(source="first_name")
     lastName = serializers.CharField(source="last_name")
     isStaff = serializers.BooleanField(source="is_staff")
     dateJoined = serializers.DateTimeField(source="date_joined")
+    avatarPath = serializers.SerializerMethodField()
+
+    def get_avatarPath(self, user):
+        avatar_name = getattr(getattr(user, "profile", None), "avatar_name", "")
+        path = (
+            f"{settings.MEDIA_URL}{avatar_name}"
+            if avatar_name
+            else "/images/profile/default-avatar.webp"
+        )
+        request = self.context.get("request")
+        return request.build_absolute_uri(path) if request else path
 
     class Meta:
         model = USER_MODEL
         fields = (
             "id",
-            # "avatarPath",
+            "avatarPath",
             "username",
             "firstName",
             "lastName",

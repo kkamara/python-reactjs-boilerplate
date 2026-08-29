@@ -1,5 +1,4 @@
 # api/models/__init__.py
-# from .users import User
-# from .products import Product
+from .user_profile import UserProfile
 
-# __all__ = ["User", "Product"]
+__all__ = ["UserProfile"]
