@@ -8,6 +8,8 @@
 
 * [Installation](#installation)
 
+* [Database Seeding](#database-seeding)
+
 * [Usage](#usage)
 
 * [Using Docker?](#using-docker)
@@ -50,7 +52,7 @@ pip install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py loaddata api/v1/web/users/fixtures/user-seed.json
+python manage.py seed
 
 cd frontend
 cp .env.example .env
@@ -58,6 +60,22 @@ yarn
 yarn build
 # In root .env, set DEBUG=True
 yarn start
+```
+
+## Database Seeding
+
+```bash
+# Seed database with demo user (Jane Doe) and 30 fake users (default)
+python manage.py seed
+
+# Seed a specific number of fake users
+python manage.py seed --users 50
+
+# Seed with a custom password (default: secret)
+python manage.py seed --password custompass
+
+# Undo/clean seeded users from the database
+python manage.py seed --undo
 ```
 
 ## Usage
