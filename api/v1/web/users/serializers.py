@@ -102,6 +102,108 @@ class RegisterUserSerializer(serializers.Serializer):
         return value
 
 
+class UpdateUserSerializer(serializers.Serializer):
+    firstName = serializers.CharField(
+        max_length=19,
+        min_length=3,
+        required=True,
+        trim_whitespace=True,
+        error_messages={
+            "required": "The first name field is required.",
+            "blank": "The first name field may not be blank.",
+            "min_length": "The first name field length must be greater than 2 characters.",
+            "max_length": "The first name field length must not exceed 19 characters.",
+        },
+    )
+    lastName = serializers.CharField(
+        max_length=19,
+        min_length=3,
+        required=True,
+        trim_whitespace=True,
+        error_messages={
+            "required": "The last name field is required.",
+            "blank": "The last name field may not be blank.",
+            "min_length": "The last name field length must be greater than 2 characters.",
+            "max_length": "The last name field length must not exceed 19 characters.",
+        },
+    )
+    email = serializers.EmailField(
+        max_length=100,
+        required=True,
+        trim_whitespace=True,
+        error_messages={
+            "required": "The email field is required.",
+            "blank": "The email field may not be blank.",
+            "invalid": "The email field must be a valid email address.",
+            "max_length": "The email field length must not exceed 100 characters.",
+        },
+    )
+    # A blank password means "no change" to the field; non-blank requires a matching passwordConfirmation.
+    password = serializers.CharField(
+        required=True,
+        allow_blank=True,
+        min_length=5,
+        max_length=19,
+        write_only=True,
+        trim_whitespace=True,
+        error_messages={
+            "required": "The password field is required.",
+            "min_length": "The password field length must be greater than 5 characters.",
+            "max_length": "The password field length must not exceed 19 characters.",
+        },
+    )
+    passwordConfirmation = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        min_length=5,
+        max_length=19,
+        write_only=True,
+        trim_whitespace=True,
+        error_messages={
+            "min_length": "The password confirmation field length must be greater than 5 characters.",
+            "max_length": "The password confirmation field length must not exceed 19 characters.",
+        },
+    )
+
+    def validate_email(self, value):
+        if (
+            USER_MODEL.objects.filter(email__iexact=value)
+            .exclude(pk=self.instance.pk)
+            .exists()
+        ):
+            raise serializers.ValidationError("The email field is already taken.")
+        return value
+
+    def validate_passwordConfirmation(self, value):
+        password = self.initial_data.get("password")
+        passwordConfirmation = self.initial_data.get("passwordConfirmation")
+        if password and password != passwordConfirmation:
+            raise serializers.ValidationError(
+                "The password confirmation field does not match the password field."
+            )
+        return value
+
+    def validate(self, attrs):
+        if attrs.get("password") and not attrs.get("passwordConfirmation"):
+            raise serializers.ValidationError(
+                {
+                    "passwordConfirmation": (
+                        "The password confirmation field is required."
+                    )
+                }
+            )
+        return attrs
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data["firstName"]
+        instance.last_name = validated_data["lastName"]
+        instance.email = validated_data["email"]
+        if validated_data.get("password"):
+            instance.set_password(validated_data["password"])
+        instance.save()
+        return instance
+
+
 class UserResponseSerializer(serializers.ModelSerializer):
     firstName = serializers.CharField(source="first_name")
     lastName = serializers.CharField(source="last_name")

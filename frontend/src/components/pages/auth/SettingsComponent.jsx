@@ -13,6 +13,7 @@ import { updateSettings, } from "../../../redux/actions/updateUserSettingsAction
 import "./SettingsComponent.scss"
 import { removeAvatarFile } from "../../../redux/actions/removeAvatarActions"
 
+const defaultUsernameState = ""
 const defaultFirstNameState = ""
 const defaultLastNameState = ""
 const defaultEmailState = ""
@@ -27,6 +28,7 @@ export default function SettingsComponent() {
     removeAvatar: state.removeAvatar,
   }))
   const dispatch = useDispatch()
+  const [username, setUsername] = useState(defaultUsernameState)
   const [firstName, setFirstName] = useState(defaultFirstNameState)
   const [lastName, setLastName] = useState(defaultLastNameState)
   const [email, setEmail] = useState(defaultEmailState)
@@ -37,6 +39,7 @@ export default function SettingsComponent() {
   const [error, setError] = useState("")
 
   useEffect(() => {
+    setUsername(state.auth.data.username)
     setFirstName(state.auth.data.firstName)
     setLastName(state.auth.data.lastName)
     setEmail(state.auth.data.email)
@@ -189,6 +192,18 @@ export default function SettingsComponent() {
           </div>
 
           <form onSubmit={handleFormSubmit}>
+            <div className="form-group">
+              <label htmlFor="username">
+                Username:
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                value={username}
+                disabled={true}
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="firstName">
                 First Name*:

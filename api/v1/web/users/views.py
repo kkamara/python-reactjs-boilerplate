@@ -13,6 +13,7 @@ from .serializers import (
     LoginUserSerializer,
     LogoutUserSerializer,
     RegisterUserSerializer,
+    UpdateUserSerializer,
     UserResponseSerializer,
 )
 
@@ -113,8 +114,25 @@ class AuthoriseUserAPIView(APIView):
         )
 
 
-class LogoutUserAPIView(APIView):
+class UserAPIView(APIView):
     permission_classes = (IsAuthenticated,)
+
+    def patch(self, request, *args, **kwargs):
+        serializer = UpdateUserSerializer(instance=request.user, data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except serializers.ValidationError as exc:
+            return Response(
+                {
+                    "message": first_validation_error(exc.detail),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer.save()
+
+        return Response({"message": "Success."}, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         serializer = LogoutUserSerializer(data=request.data)
