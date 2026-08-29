@@ -1,9 +1,18 @@
 import logging
 import time
 
+from django.conf import settings
 from django_ratelimit.decorators import ratelimit
+from whitenoise.middleware import WhiteNoiseMiddleware
 
 request_logger = logging.getLogger("request")
+
+
+# Serves the top-level images/ directory (e.g. default avatars) at /images/ via WhiteNoise.
+class ImagesWhiteNoiseMiddleware(WhiteNoiseMiddleware):
+    def __init__(self, get_response):
+        super().__init__(get_response)
+        self.add_files(str(settings.BASE_DIR / "images"), prefix="images/")
 
 
 # Propagate request logs to the root logger, which is configured to write to file.

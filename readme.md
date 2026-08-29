@@ -1,10 +1,18 @@
+![python-react-boilerplate.png](https://raw.githubusercontent.com/kkamara/useful/refs/heads/main/python-react-boilerplate.png)
+
+![python-react-boilerplate2.png](https://raw.githubusercontent.com/kkamara/useful/refs/heads/main/python-react-boilerplate2.png)
+
 # python-react-boilerplate
 
-(08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with ReactJS Redux SPA.
+(08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with React Redux SPA.
+
+* [Using Postman?](#using-postman)
 
 * [Requirements](#requirements)
 
 * [Installation](#installation)
+
+* [Database Seeding](#database-seeding)
 
 * [Usage](#usage)
 
@@ -24,6 +32,14 @@
 
 * [License](#license)
 
+## Using Postman?
+
+[Get Postman HTTP client](https://www.postman.com).
+
+[Postman API Collection for Python React Boilerplate](./python-react-boilerplate.postman_collection.json).
+
+[Postman API Environment for Python React Boilerplate](./python-react-boilerplate.postman_environment.json).
+
 ## Requirements
 
 * [Tested using Python 3.13](https://www.python.org)
@@ -40,6 +56,30 @@ pip install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
+python manage.py seed
+
+cd frontend
+cp .env.example .env
+yarn
+yarn build
+# In root .env, set DEBUG=True
+yarn start
+```
+
+## Database Seeding
+
+```bash
+# Seed database with demo user (Jane Doe) and 30 fake users (default)
+python manage.py seed
+
+# Seed a specific number of fake users
+python manage.py seed --users 50
+
+# Seed with a custom password (default: secret)
+python manage.py seed --password custompass
+
+# Undo/clean seeded users from the database
+python manage.py seed --undo
 ```
 
 ## Usage
