@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from django.contrib.auth import get_user_model
 from django.core.files.storage import default_storage
+from django.core.paginator import Paginator
 from rest_framework import generics, serializers, status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
@@ -123,6 +124,38 @@ class AuthoriseUserAPIView(APIView):
 
 class UserAPIView(APIView):
     permission_classes = (IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        page = request.query_params.get("page", "1")
+        try:
+            page = int(page)
+        except (TypeError, ValueError):
+            return Response(
+                {
+                    "message": (
+                        "The page query parameter, if provided, must be of type integer."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        paginator = Paginator(USER_MODEL.objects.order_by("-id"), 7)
+        users = paginator.get_page(page)
+
+        return Response(
+            {
+                "data": UserResponseSerializer(
+                    users.object_list, many=True, context={"request": request}
+                ).data,
+                "meta": {
+                    "currentPage": users.number,
+                    "items": paginator.count,
+                    "pages": paginator.num_pages if paginator.count else 0,
+                    "perPage": paginator.per_page,
+                },
+            },
+            status=status.HTTP_200_OK,
+        )
 
     def patch(self, request, *args, **kwargs):
         serializer = UpdateUserSerializer(instance=request.user, data=request.data)

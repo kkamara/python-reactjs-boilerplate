@@ -14,8 +14,14 @@ export default function HomeComponent() {
   }))
 
   useEffect(() => {
-    // dispatch(getUsers())
+    dispatch(getUsers())
   }, [])
+
+  useEffect(() => {
+    if (state.users.data) {
+      console.log(state.users.data)
+    }
+  }, [state.users])
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
@@ -75,8 +81,7 @@ export default function HomeComponent() {
             <li key={index} className="list-group-item home-item">
               <strong>name</strong> ({user.firstName} {user.lastName}),&nbsp;
               <strong>email</strong> ({user.email}),&nbsp;
-              <strong>created_at</strong> ({parseDate(user.createdAt)}),&nbsp;
-              <strong>updated_at</strong> ({parseDate(user.updatedAt)})
+              <strong>date joined</strong> ({parseDate(user.dateJoined)})
             </li>
           ))}
         </ul>
@@ -105,11 +110,11 @@ export default function HomeComponent() {
           Test Button
         </button>
       </div>
-      {/* <br />
+      <br />
       <br />
       {pagination()}
       {renderList()}
-      {pagination()} */}
+      {pagination()}
     </div>
   )
 }

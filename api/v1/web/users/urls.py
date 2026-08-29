@@ -13,5 +13,5 @@ urlpatterns = [
     path("register/", RegisterUserCreateAPIView.as_view(), name="register_user"),
     path("login/", LoginUserAPIView.as_view(), name="login_user"),
     path("authorise/", AuthoriseUserAPIView.as_view(), name="authorise_user"),
-    path("", UserAPIView.as_view(), name="logout_user"),
+    path("", UserAPIView.as_view(), name="user"),
 ]
