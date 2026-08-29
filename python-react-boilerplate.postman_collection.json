@@ -8,7 +8,31 @@
   "item": [
     {
       "name": "Mobile API",
-      "item": []
+      "item": [
+        {
+          "name": "Hello",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Time-Zone",
+                "value": "Europe/London",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{mobileAPI}}/hello",
+              "host": [
+                "{{mobileAPI}}"
+              ],
+              "path": [
+                "hello"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "API",

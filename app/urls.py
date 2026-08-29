@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include("api.v1.urls")),
+    path("mobile-api/v1/", include("api.mobile.v1.urls")),
     re_path(r"^.*", views.catchall),
 ]
 
