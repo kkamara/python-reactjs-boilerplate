@@ -54,7 +54,7 @@ jobs:
       - name: Run Migrations
         run: python manage.py migrate --noinput
       - name: Run Seeder
-        run: python manage.py seed --noinput
+        run: python manage.py seed
       - name: Run Tests
         run: |
           python ${{ env.django_test_args }} manage.py test
