@@ -47,6 +47,10 @@ jobs:
           sed -i "s/MARIADB_USER=root/MARIADB_USER=user/g" .env
           sed -i "s/MARIADB_PASSWORD=/MARIADB_PASSWORD=secret/g" .env
           sed -i "s/MARIADB_PORT=3306/MARIADB_PORT=${{ job.services.mysql.ports['3306'] }}/g" .env
+      - name: Grant test database privileges
+        run: |
+          mysql --host=127.0.0.1 --port=${{ job.services.mysql.ports['3306'] }} -uroot -psecret -e \
+            "GRANT ALL PRIVILEGES ON \`test_%\`.* TO 'user'@'%'; FLUSH PRIVILEGES;"
       - name: Run Tests
         run: |
           python ${{ env.django_test_args }} manage.py test
