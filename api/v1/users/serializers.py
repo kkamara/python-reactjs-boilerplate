@@ -102,6 +102,9 @@ class RegisterUserSerializer(serializers.Serializer):
             )
         return value
 
+    def validate_username(self, value):
+        return value.lower()
+
 
 class UserResponseSerializer(serializers.ModelSerializer):
     firstName = serializers.CharField(source="first_name")

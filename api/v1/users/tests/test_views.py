@@ -43,6 +43,23 @@ class RegisterUserViewTests(TestCase):
         )
         self.assertNotIn("errors", response.json())
 
+    def test_register_user_stores_username_in_lowercase(self):
+        payload = {
+            "firstName": "Jane",
+            "lastName": "Doe",
+            "username": "JaneDoe",
+            "email": "jane@example.com",
+            "password": "secret123",
+            "passwordConfirmation": "secret123",
+        }
+
+        response = self.client.post(reverse("register-user"), payload)
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()["username"], "janedoe")
+        self.assertTrue(User.objects.filter(username="janedoe").exists())
+        self.assertFalse(User.objects.filter(username="JaneDoe").exists())
+
 
 class AuthoriseUserViewTests(TestCase):
     def setUp(self):

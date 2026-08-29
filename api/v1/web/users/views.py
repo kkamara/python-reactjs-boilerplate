@@ -64,7 +64,7 @@ class RegisterUserCreateAPIView(generics.CreateAPIView):
         new_user = USER_MODEL.objects.create_user(
             first_name=firstName,
             last_name=lastName,
-            username=username,
+            username=username.lower(),
             email=email,
             password=password,
         )
