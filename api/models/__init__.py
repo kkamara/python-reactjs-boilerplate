@@ -1,4 +1,3 @@
-# api/models/__init__.py
-from .user_profile import UserProfile
+from api.v1.models import UserProfile
 
 __all__ = ["UserProfile"]

@@ -12,8 +12,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from api.models import UserProfile
 from api.utils import first_validation_error
+from api.v1.models import UserProfile
 
 from .serializers import (
     LoginUserSerializer,

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 
-from api.models import UserProfile
+from api.v1.models import UserProfile
 
 User = get_user_model()
 

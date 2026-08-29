@@ -80,6 +80,10 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
+MIGRATION_MODULES = {
+    "api": "api.v1.migrations",
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",

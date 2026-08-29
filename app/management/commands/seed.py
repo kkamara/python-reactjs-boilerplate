@@ -6,7 +6,7 @@ from django.db import transaction
 from django.db.models import Q
 from faker import Faker
 
-from api.models import UserProfile
+from api.v1.models import UserProfile
 
 User = get_user_model()
 
