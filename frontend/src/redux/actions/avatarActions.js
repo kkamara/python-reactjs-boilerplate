@@ -9,7 +9,7 @@ export const uploadAvatar = payload => {
 
     const accessTokenID = "access-token"
     await http.postFormData(
-      "/user/avatar",
+      "/users/avatar",
       payload,
       accessTokenID,
     )

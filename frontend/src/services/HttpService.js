@@ -185,6 +185,8 @@ export default class HttpService
     let url = this.url+path
     if (null !== path.match(/http/g)) {
       url = path
+    } else if (!url.endsWith("/")) {
+      url += "/"
     }
     return axios.delete(
       url, 
