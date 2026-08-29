@@ -1,3 +1,7 @@
+![python-react-boilerplate.png](https://raw.githubusercontent.com/kkamara/useful/refs/heads/main/python-react-boilerplate.png)
+
+![python-react-boilerplate2.png](https://raw.githubusercontent.com/kkamara/useful/refs/heads/main/python-react-boilerplate2.png)
+
 # python-react-boilerplate
 
 (08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with React Redux SPA.
