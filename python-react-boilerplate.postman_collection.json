@@ -425,6 +425,41 @@
               "response": []
             }
           ]
+        },
+        {
+          "name": "Get Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Time-Zone",
+                "value": "Europe/London",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{web}}/users",
+              "host": [
+                "{{web}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "5",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ]
     }
