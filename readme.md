@@ -4,7 +4,7 @@
 
 # python-react-boilerplate
 
-(08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with React Redux SPA.
+(08-Apr-2022) An MVC Python Django (5.2 LTS) boilerplate with React 19 Redux SPA.
 
 * [Using Postman?](#using-postman)
 
