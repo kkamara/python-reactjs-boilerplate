@@ -107,6 +107,8 @@ class Command(BaseCommand):
                     "email": "jane@example.com",
                     "first_name": "Jane",
                     "last_name": "Doe",
+                    "is_staff": True,
+                    "is_superuser": True,
                 },
             )
             demo_user.set_password(password)
