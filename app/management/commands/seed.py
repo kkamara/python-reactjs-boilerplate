@@ -3,6 +3,7 @@ import re
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.db.models import Q
 from faker import Faker
 
 from api.models import UserProfile
@@ -138,13 +139,12 @@ class Command(BaseCommand):
         self.stdout.write(self.style.WARNING("Reverting database seeding..."))
 
         with transaction.atomic():
-            # Delete non-staff, non-superuser accounts
-            _deleted_profiles, _ = UserProfile.objects.filter(
+            seeded_users = Q(username="jane") | Q(is_staff=False, is_superuser=False)
+            seeded_profiles = Q(user__username="jane") | Q(
                 user__is_staff=False, user__is_superuser=False
-            ).delete()
-            deleted_users, _ = User.objects.filter(
-                is_staff=False, is_superuser=False
-            ).delete()
+            )
+            _deleted_profiles, _ = UserProfile.objects.filter(seeded_profiles).delete()
+            deleted_users, _ = User.objects.filter(seeded_users).delete()
 
         self.stdout.write(
             self.style.SUCCESS(f"Successfully deleted {deleted_users} seeded user(s).")
