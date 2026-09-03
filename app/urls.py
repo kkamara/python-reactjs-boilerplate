@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/email", include("api.email_urls")),
     path("api/v1/", include("api.v1.urls")),
     path("mobile-api/v1/", include("api.mobile.v1.urls")),
 ]

@@ -264,17 +264,23 @@ logging.config.dictConfig(
 logging.Formatter.converter = time.gmtime
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_USE_TLS = env("EMAIL_USE_TLS") == "True"
-EMAIL_PORT = env("EMAIL_PORT")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = "info@django-app.com"
+MAIL_HOST = env("MAIL_HOST", default="mailhog")
+MAIL_PORT = env.int("MAIL_PORT", default=1025)
+MAIL_USE_TLS = env.bool("MAIL_USE_TLS", default=False)
+MAIL_USER = env("MAIL_USER", default="")
+MAIL_PASS = env("MAIL_PASS", default="")
+MAIL_FROM = env("MAIL_FROM", default="No Reply <noreply@python-boilerplate.com>")
+MAIL_TO = env.list("MAIL_TO", default=["recipient@example.com"])
+
+EMAIL_HOST = MAIL_HOST
+EMAIL_USE_TLS = MAIL_USE_TLS
+EMAIL_PORT = MAIL_PORT
+EMAIL_HOST_USER = MAIL_USER
+EMAIL_HOST_PASSWORD = MAIL_PASS
+DEFAULT_FROM_EMAIL = MAIL_FROM
 
 MAILGUN_DOMAIN = env("MAILGUN_DOMAIN")
 MAILGUN_SECRET = env("MAILGUN_SECRET")
-MAIL_TO_ADDRESS = env("MAIL_TO_ADDRESS")
-MAIL_FROM_ADDRESS = env("MAIL_FROM_ADDRESS")
 MAIL_SUBJECT = env("MAIL_SUBJECT")
 
 # Security defaults keep local development easy while hardening production.

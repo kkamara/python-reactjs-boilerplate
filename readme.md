@@ -47,6 +47,7 @@
 ## Installation
 
 ```bash
+# Make sure to set DEBUG to True. This is required for running the React app locally.
 cp .env.example .env
 
 python -m venv env
